@@ -1,0 +1,32 @@
+name: Deploy to website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-website-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call website deployment webhook
+        env:
+          DEPLOY_WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X GET \
+            -H "Authorization: Bearer $AUTH_TOKEN" \
+            -H "Content-Type: application/json" \
+            $DEPLOY_WEBHOOK_URL)
+
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+
+          if [ $http_code -ne 200 ]; then
+            echo "API call failed with status code: $http_code"
+            message=$(echo $body | jq -r '.message // "No message provided"')
+            echo "Error message: $message"
+            exit 1
+          else
+            echo "API call successful"
+          fi
