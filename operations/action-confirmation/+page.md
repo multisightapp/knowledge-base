@@ -7,7 +7,7 @@ description: 'Explore action confirmation in multisignature wallets, focusing on
 	import {KeyTakeaways} from "$modules/knowledge-base"
 </script>
 
-Action confirmation is a critical and defining feature of multisignature wallets. It is the process where the **security and integrity of the wallet** are upheld or compomised. Every action confirmation demands meticulous **attention and informed decision-making** by all involved participants.
+Action confirmation is a critical and defining feature of multisignature wallets. It is the process where the **security and integrity of the wallet** are upheld or compromised. Every action confirmation demands meticulous **attention and informed decision-making** by all involved participants.
 
 After an action is submitted within a multisig wallet, it enters a queue of pending actions **awaiting review and confirmation**. For the action to become executable, it must receive a **predefined number of confirmations** from the wallet's owners. Each involved owner must carefully verify the accuracy and origin of all action details, including:
 
